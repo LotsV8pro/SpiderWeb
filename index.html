@@ -11,7 +11,6 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            overflow: auto;
         }
 
         /* Estilos del contenido */
@@ -42,7 +41,7 @@
 
         .link {
             text-decoration: underline;
-            color: blue;
+            color: #20b2aa;
         }
 
         /* Estilos del encabezado */
@@ -56,11 +55,11 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            transition: top 0.3s ease; /* Transición para el desplazamiento del encabezado */
+            transition: top 0.5s ease; /* Transición para el desplazamiento del encabezado */
         }
 
         .main-header.hidden {
-            top: -300px; /* Desplaza el encabezado hacia arriba */
+            top: -250px; /* Desplaza el encabezado hacia arriba */
         }
 
         /* Estilos del pie de página */
@@ -73,14 +72,7 @@
             bottom: -100px; /* Inicialmente, el footer estará fuera de la vista */
             left: 0;
             width: 100%;
-            opacity: 0; /* Inicialmente, el footer estará oculto */
-            transition: bottom 0.5s ease, opacity 0.5s ease; /* Transiciones suaves */
-        }
-
-        /* Mostrar el footer cuando la página se carga */
-        .show-footer {
-            bottom: 0; /* Muestra el footer */
-            opacity: 1; /* Hace que el footer sea visible */
+            transition: bottom 0.5s ease; /* Transición suave */
         }
     </style>
 </head>
@@ -114,44 +106,47 @@
         <p>Albert Romero Lorente</p>
     </footer>
 
-<script>
-    var lastScrollTop = 0;
-    var headerHeight = document.querySelector('.main-header').offsetHeight;
-
-    window.addEventListener("scroll", function () {
-        var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
-            // Scrolling down and not at the top of the page
-            document.querySelector('.main-header').classList.add('hidden');
-        } else {
-            // Scrolling up or at the top of the page
-            document.querySelector('.main-header').classList.remove('hidden');
-        }
-        lastScrollTop = currentScroll;
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var footer = document.querySelector('.main-footer');
-
-        // Función para mostrar el footer al llegar al final de la página
-        function showFooter() {
+    <script>
+        var lastScrollTop = 0;
+        var headerHeight = 225; // Altura del encabezado
+        var isAtTop = true;
+    
+        window.addEventListener("scroll", function () {
+            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+            // Si el usuario se está desplazando hacia abajo y no está en la parte superior
+            if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
+                document.querySelector('.main-header').classList.add('hidden');
+                isAtTop = false;
+            } 
+            // Si el usuario se está desplazando hacia arriba y está en la parte superior o está en el final de la página
+            else if ((currentScroll < lastScrollTop && isAtTop) || (currentScroll <= 0 && !isAtTop)) {
+                document.querySelector('.main-header').classList.remove('hidden');
+                isAtTop = true;
+            }
+    
+            // Mostrar u ocultar el footer al llegar al final de la página
+            var footer = document.querySelector('.main-footer');
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 footer.style.bottom = "0";
-                footer.style.opacity = "1"; // Añadir esto para asegurar que el footer sea visible
             } else {
                 footer.style.bottom = "-100px";
-                footer.style.opacity = "0"; // Añadir esto para asegurar que el footer sea invisible
             }
-        }
-
-        // Evento de scroll
-        window.addEventListener("scroll", showFooter);
-
-        // Mostrar el footer al cargar la página
-        showFooter();
-    });
-</script>
-
+    
+            lastScrollTop = currentScroll;
+        });
+    
+        // Ajustar la altura del encabezado después de que se cargue completamente el DOM
+        document.addEventListener("DOMContentLoaded", function () {
+            headerHeight = document.querySelector('.main-header').offsetHeight;
+    
+            // Mostrar el encabezado al cargar la página si no estamos en la parte superior
+            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            if (currentScroll > headerHeight) {
+                document.querySelector('.main-header').classList.add('hidden');
+                isAtTop = false;
+            }
+        });
+    </script>
 </body>
-
 </html>
