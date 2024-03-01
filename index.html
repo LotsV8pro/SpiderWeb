@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
+    <!-- Metadatos y título de la página -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spiderman: Far from Home</title>
+
+    <!-- Estilos CSS -->
     <style>
         /* Estilos generales */
         body {
@@ -15,14 +18,17 @@
 
         /* Estilos del contenido */
         main {
-            margin-top: 225px; /* Ajuste para el espacio del encabezado */
             padding: 20px;
             text-align: center;
+            transition: margin-top 0.5s ease; /* Transición suave para el margen superior */
+            margin-top: 325px; /* Ajuste inicial para el espacio del encabezado */
         }
 
         p {
             max-width: 600px; /* Ancho máximo igual al de las imágenes */
             margin: 0 auto; /* Centrar el texto horizontalmente */
+            line-height: 1.6em; /* Espaciado entre líneas */
+            font-size: 15pt; /* Tamaño de fuente */
         }
 
         img {
@@ -55,11 +61,12 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            transition: top 0.5s ease; /* Transición para el desplazamiento del encabezado */
+            opacity: 1; /* Establecer la opacidad inicial */
+            transition: opacity 0.3s ease; /* Transición suave para la opacidad */
         }
 
         .main-header.hidden {
-            top: -250px; /* Desplaza el encabezado hacia arriba */
+            opacity: 0; /* Ocultar el encabezado cambiando la opacidad */
         }
 
         /* Estilos del pie de página */
@@ -74,14 +81,25 @@
             width: 100%;
             transition: bottom 0.5s ease; /* Transición suave */
         }
+
+        /* Ajuste de altura del contenido principal cuando el encabezado está oculto */
+        .main-header.hidden + main {
+            margin-top: 0; /* Eliminar el margen superior del contenido */
+        }
+
+        h1 {
+            font-size: 48pt;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Encabezado de la página -->
     <header class="main-header">
         <img src="./Imagenes/Header/e3666381422465.5cff5f0ee9175.png" alt="Spiderman Logo" height="200" width="auto">
     </header>
 
+    <!-- Contenido principal -->
     <main>
         <h1>Spider-Man: No Way Home: la idea de recrear el icónico meme del hombre araña surgió de Andrew Garfield.</h1>
         <p>
@@ -106,47 +124,31 @@
         <p>Albert Romero Lorente</p>
     </footer>
 
+    <!-- Script JavaScript -->
     <script>
-        var lastScrollTop = 0;
-        var headerHeight = 225; // Altura del encabezado
-        var isAtTop = true;
-    
+        var headerHeight = document.querySelector('.main-header').offsetHeight;
+        
         window.addEventListener("scroll", function () {
             var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    
-            // Si el usuario se está desplazando hacia abajo y no está en la parte superior
-            if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
+
+            if (currentScroll > headerHeight) {
                 document.querySelector('.main-header').classList.add('hidden');
-                isAtTop = false;
-            } 
-            // Si el usuario se está desplazando hacia arriba y está en la parte superior o está en el final de la página
-            else if ((currentScroll < lastScrollTop && isAtTop) || (currentScroll <= 0 && !isAtTop)) {
+            } else {
                 document.querySelector('.main-header').classList.remove('hidden');
-                isAtTop = true;
             }
-    
-            // Mostrar u ocultar el footer al llegar al final de la página
+
             var footer = document.querySelector('.main-footer');
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 footer.style.bottom = "0";
             } else {
                 footer.style.bottom = "-100px";
             }
-    
-            lastScrollTop = currentScroll;
         });
-    
-        // Ajustar la altura del encabezado después de que se cargue completamente el DOM
+
         document.addEventListener("DOMContentLoaded", function () {
             headerHeight = document.querySelector('.main-header').offsetHeight;
-    
-            // Mostrar el encabezado al cargar la página si no estamos en la parte superior
-            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-            if (currentScroll > headerHeight) {
-                document.querySelector('.main-header').classList.add('hidden');
-                isAtTop = false;
-            }
         });
     </script>
 </body>
+
 </html>
