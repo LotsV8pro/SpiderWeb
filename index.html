@@ -12,30 +12,23 @@
             margin: 0;
             padding: 0;
             overflow: auto;
-            padding-bottom: 60px; /* Ajusta este valor según la altura de tu footer */
-            margin-left: 600px;
-            margin-right: 600px;
         }
-
-        /* Estilos del encabezado */
-        header {
-            background-color: #fff;
-            color: #000; /* Cambiado el color del texto para que sea visible sobre el fondo blanco */
-            padding: 20px 0;
-            text-align: center;
-            position: static;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            height: 300px;
-            border-bottom: 2px solid black; /* Borde inferior de 2 píxeles de ancho y color negro */
-    }
 
         /* Estilos del contenido */
         main {
+            margin-top: 225px; /* Ajuste para el espacio del encabezado */
             padding: 20px;
             text-align: center;
-            border-image: auto;
+        }
+
+        p {
+            max-width: 600px; /* Ancho máximo igual al de las imágenes */
+            margin: 0 auto; /* Centrar el texto horizontalmente */
+        }
+
+        img {
+            max-width: 100%; /* Ajustar el tamaño de la imagen al contenedor */
+            margin: 20px auto; /* Centrar la imagen horizontalmente */
         }
 
         a {
@@ -49,34 +42,115 @@
 
         .link {
             text-decoration: underline;
-          color: blue;
+            color: blue;
+        }
+
+        /* Estilos del encabezado */
+        .main-header {
+            background-color: #010;
+            color: #fff;
+            padding: 2px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: top 0.3s ease; /* Transición para el desplazamiento del encabezado */
+        }
+
+        .main-header.hidden {
+            top: -300px; /* Desplaza el encabezado hacia arriba */
+        }
+
+        /* Estilos del pie de página */
+        .main-footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 12px 0;
+            position: fixed;
+            bottom: -100px; /* Inicialmente, el footer estará fuera de la vista */
+            left: 0;
+            width: 100%;
+            opacity: 0; /* Inicialmente, el footer estará oculto */
+            transition: bottom 0.5s ease, opacity 0.5s ease; /* Transiciones suaves */
+        }
+
+        /* Mostrar el footer cuando la página se carga */
+        .show-footer {
+            bottom: 0; /* Muestra el footer */
+            opacity: 1; /* Hace que el footer sea visible */
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <img src="./Imagenes/Header/Logospiderman.png" alt="Spiderman Logo">
-        <h1>Spider-Man: No Way Home: la idea de recrear el icónico meme del hombre araña surgió de Andrew Garfield.</h1>
+    <header class="main-header">
+        <img src="./Imagenes/Header/e3666381422465.5cff5f0ee9175.png" alt="Spiderman Logo" height="200" width="auto">
     </header>
 
     <main>
-               
+        <h1>Spider-Man: No Way Home: la idea de recrear el icónico meme del hombre araña surgió de Andrew Garfield.</h1>
         <p>
-            
-            Marvel ha compartido una fotografía donde podemos ver a los tres actores de  <a class="link" href="https://www.youtube.com/watch?v=JfVOs4VSpmA" target="_blank">Spider-Man: No Way Home</a>
-            , Tom Holland, Tobey Maguire, y Andrew Garfield, recreando el famoso meme del hombre araña que lleva siendo viral durante muchos meses, 
-            donde ahora son tres los superhéroes los que se están señalando, como si no se conocieran, un momento que se pudo ver de forma más sutil 
+            Marvel ha compartido una fotografía donde podemos ver a los tres actores de <a class="link" href="https://www.youtube.com/watch?v=JfVOs4VSpmA" target="_blank">Spider-Man: No Way Home</a>
+            , Tom Holland, Tobey Maguire, y Andrew Garfield, recreando el famoso meme del hombre araña que lleva siendo viral durante muchos meses,
+            donde ahora son tres los superhéroes los que se están señalando, como si no se conocieran, un momento que se pudo ver de forma más sutil
             en la propia película.
-            El meme, cuya imagen proviene del episodio de <a class="link" href="https://en.wikipedia.org/wiki/Spider-Man_(1967_TV_series)" target="_blank">Los dibujos animados de Spider-Man</a>, 
-            en el que un villano intenta hacerse pasar por superhéroe, 
-            se ha compartido de nuevo para anunciar la venta de formatos domésticos y la aparición en digital de la película el 22 de marzo con una imagen especial 
-            de los actores durante el rodaje entre los momentos detrás de las cámaras como Tobey Maguire imitando algunos pasos prohibidos de su infame baile en 
-            <a class="link" href="https://www.youtube.com/watch?v=e5wUilOeOmg" target="_blank">Spider-Man 3</a> .
+            <img src="./Imagenes/Body/Nueva imagen de mapa de bits.jpg" alt="Spiderman image" height="325" width="600"> El meme, cuya imagen proviene del episodio de
+            <a class="link" href="https://en.wikipedia.org/wiki/Spider-Man_(1967_TV_series)" target="_blank">Los dibujos animados de Spider-Man</a>,
+            en el que un villano intenta hacerse pasar por superhéroe, se ha compartido de nuevo para anunciar la venta de formatos domésticos y la aparición
+            en digital de la película el 22 de marzo con una imagen especial de los actores durante el rodaje entre los momentos detrás de las cámaras como Tobey Maguire
+            imitando algunos pasos prohibidos de su infame baile en
+            <a class="link" href="https://www.youtube.com/watch?v=e5wUilOeOmg" target="_blank">Spider-Man 3</a>.
             <img src="./Imagenes/Body/SMX2-M12-A10 SpiderWeb-1.jpeg" alt="Spiderman Logo" height="450" width="600">
             <img src="./Imagenes/Body/SMX2-M12-A10 SpiderWeb-2.jpeg" alt="Spiderman Logo" height="450" width="600">
         </p>
     </main>
+
+    <!-- Pie de página -->
+    <footer class="main-footer">
+        <p>SMX2</p>
+        <p>Albert Romero Lorente</p>
+    </footer>
+
+<script>
+    var lastScrollTop = 0;
+    var headerHeight = document.querySelector('.main-header').offsetHeight;
+
+    window.addEventListener("scroll", function () {
+        var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll > lastScrollTop && currentScroll > headerHeight) {
+            // Scrolling down and not at the top of the page
+            document.querySelector('.main-header').classList.add('hidden');
+        } else {
+            // Scrolling up or at the top of the page
+            document.querySelector('.main-header').classList.remove('hidden');
+        }
+        lastScrollTop = currentScroll;
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var footer = document.querySelector('.main-footer');
+
+        // Función para mostrar el footer al llegar al final de la página
+        function showFooter() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                footer.style.bottom = "0";
+                footer.style.opacity = "1"; // Añadir esto para asegurar que el footer sea visible
+            } else {
+                footer.style.bottom = "-100px";
+                footer.style.opacity = "0"; // Añadir esto para asegurar que el footer sea invisible
+            }
+        }
+
+        // Evento de scroll
+        window.addEventListener("scroll", showFooter);
+
+        // Mostrar el footer al cargar la página
+        showFooter();
+    });
+</script>
 
 </body>
 
