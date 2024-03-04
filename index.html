@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <!-- Metadatos y título de la página -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spiderman: Far from Home</title>
-
+   <link rel="icon"  href="./Imagenes/Logo/spider-logo.png">
     <!-- Estilos CSS -->
     <style>
         /* Estilos generales */
@@ -54,7 +54,7 @@
         .main-header {
             background-color: #010;
             color: #fff;
-            padding: 2px 0;
+            padding: 20px 0; /* Ajuste de padding para mantener el tamaño inicial */
             text-align: center;
             position: fixed;
             top: 0;
@@ -62,11 +62,16 @@
             width: 100%;
             z-index: 1000;
             opacity: 1; /* Establecer la opacidad inicial */
-            transition: opacity 0.3s ease; /* Transición suave para la opacidad */
+            transition: all 0.3s ease; /* Transición suave para todos los cambios */
         }
 
-        .main-header.hidden {
-            opacity: 0; /* Ocultar el encabezado cambiando la opacidad */
+        .main-header.shrink {
+            padding: 10px 0; /* Ajuste de padding para hacerlo más pequeño */
+            height: 100px; /* Altura más pequeña */
+        }
+
+        .main-header.shrink img {
+            height: 80px; /* Altura más pequeña para la imagen */
         }
 
         /* Estilos del pie de página */
@@ -83,8 +88,8 @@
         }
 
         /* Ajuste de altura del contenido principal cuando el encabezado está oculto */
-        .main-header.hidden + main {
-            margin-top: 0; /* Eliminar el margen superior del contenido */
+        .main-header.shrink + main {
+            margin-top: 100px; /* Ajuste de margen superior cuando el encabezado se hace más pequeño */
         }
 
         h1 {
@@ -126,15 +131,19 @@
 
     <!-- Script JavaScript -->
     <script>
-        var headerHeight = document.querySelector('.main-header').offsetHeight;
-        
+        var header = document.querySelector('.main-header');
+        var headerHeight = header.offsetHeight;
+        var main = document.querySelector('main');
+
         window.addEventListener("scroll", function () {
             var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
             if (currentScroll > headerHeight) {
-                document.querySelector('.main-header').classList.add('hidden');
+                header.classList.add('shrink');
+                main.style.marginTop = "100px"; // Ajuste del margen superior del contenido principal
             } else {
-                document.querySelector('.main-header').classList.remove('hidden');
+                header.classList.remove('shrink');
+                main.style.marginTop = "325px"; // Ajuste del margen superior del contenido principal
             }
 
             var footer = document.querySelector('.main-footer');
@@ -146,7 +155,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            headerHeight = document.querySelector('.main-header').offsetHeight;
+            headerHeight = header.offsetHeight;
         });
     </script>
 </body>
