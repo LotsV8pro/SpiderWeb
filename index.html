@@ -6,14 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spiderman: Far from Home</title>
-   <link rel="icon"  href="./Imagenes/Logo/spider-logo.png">
+    <link rel="icon" href="./Imagenes/Logo/spider-logo.png">
     <!-- Estilos CSS -->
     <style>
         /* Estilos generales */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
+            margin: 20px; /* Agregando un margen de 20px al body */
             padding: 0;
+            margin-bottom: 130px;
         }
 
         /* Estilos del contenido */
@@ -21,7 +22,12 @@
             padding: 20px;
             text-align: center;
             transition: margin-top 0.5s ease; /* Transición suave para el margen superior */
-            margin-top: 325px; /* Ajuste inicial para el espacio del encabezado */
+            margin-top: 275px; /* Ajuste inicial para el espacio del encabezado */
+            margin-bottom: 100px; /* Margen inferior para evitar superposición con el pie de página */
+        }
+
+        main h1 {
+            margin-bottom: 50px;
         }
 
         p {
@@ -29,11 +35,14 @@
             margin: 0 auto; /* Centrar el texto horizontalmente */
             line-height: 1.6em; /* Espaciado entre líneas */
             font-size: 15pt; /* Tamaño de fuente */
+            text-align: left; /* Ajuste a la izquierda */
         }
 
         img {
-            max-width: 100%; /* Ajustar el tamaño de la imagen al contenedor */
-            margin: 20px auto; /* Centrar la imagen horizontalmente */
+            display: block; /* Asegura que la imagen se comporte como un bloque */
+            margin-left: auto; /* Centra la imagen horizontalmente */
+            margin-right: auto; /* Centra la imagen horizontalmente */
+            max-width: 100%; /* Ajusta el tamaño máximo de la imagen al contenedor */
         }
 
         a {
@@ -80,11 +89,15 @@
             color: #fff;
             text-align: center;
             padding: 12px 0;
-            position: fixed;
-            bottom: -100px; /* Inicialmente, el footer estará fuera de la vista */
+            position: fixed; /* Mantener el pie de página fijo */
+            bottom: 0; /* Ajuste para mostrar el pie de página en la parte inferior */
             left: 0;
             width: 100%;
             transition: bottom 0.5s ease; /* Transición suave */
+        }
+
+        .main-footer p {
+            text-align: center;
         }
 
         /* Ajuste de altura del contenido principal cuando el encabezado está oculto */
@@ -93,7 +106,36 @@
         }
 
         h1 {
-            font-size: 48pt;
+            max-width: 600px; /* Ancho máximo igual al de las imágenes */
+            margin: 0 auto; /* Centrar el texto horizontalmente */
+            line-height: 1.6em; /* Espaciado entre líneas */
+            font-size: 20pt; /* Tamaño de fuente */
+            text-align: center; /* Ajuste a la derecha */
+        }
+
+        /* Estilos para las imágenes y texto adicionales */
+        .additional-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centra los elementos horizontalmente */
+            margin: 0 auto; /* Centra el contenedor horizontalmente */
+        }
+
+        .additional-content > div {
+            flex: 0 0 300px; /* Establece un ancho fijo de 300px para cada div */
+            margin: 0 10px; /* Espaciado entre las imágenes y los textos */
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        .additional-content img {
+            width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+            height: auto; /* Mantiene la proporción de la imagen */
+            display: block; /* Asegura que la imagen se comporte como un bloque */
+            margin-bottom: 10px; /* Ajusta el margen inferior entre la imagen y el texto */
+        }
+
+        .additional-content p {
+            text-align: center; /* Centra el texto horizontalmente */
         }
     </style>
 </head>
@@ -123,6 +165,18 @@
         </p>
     </main>
 
+    <!-- Imágenes y texto adicionales -->
+    <div class="additional-content">
+        <div>
+            <img src="./Imagenes/Actores/TomHolland.jpg" alt="Imagen 1">
+            <p>Tom Holland</p>
+        </div>
+        <div>
+            <img src="./Imagenes/Actores/Zendaya.jpg" alt="Imagen 2">
+            <p>Zendaya </p>
+        </div>
+    </div>
+
     <!-- Pie de página -->
     <footer class="main-footer">
         <p>SMX2</p>
@@ -131,31 +185,34 @@
 
     <!-- Script JavaScript -->
     <script>
+        // Selecciona los elementos del encabezado y el pie de página
         var header = document.querySelector('.main-header');
-        var headerHeight = header.offsetHeight;
-        var main = document.querySelector('main');
-
+        var footer = document.querySelector('.main-footer');
+    
+        // Función que se ejecuta al hacer scroll
         window.addEventListener("scroll", function () {
-            var currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (currentScroll > headerHeight) {
+            var scrollPosition = window.scrollY; // Posición actual del scroll
+            var windowHeight = window.innerHeight; // Altura de la ventana del navegador
+            var bodyHeight = document.body.offsetHeight; // Altura total del contenido de la página
+    
+            // Si el scroll es mayor que la altura de la ventana, encoge el encabezado
+            if (scrollPosition > windowHeight) {
                 header.classList.add('shrink');
-                main.style.marginTop = "100px"; // Ajuste del margen superior del contenido principal
             } else {
                 header.classList.remove('shrink');
-                main.style.marginTop = "325px"; // Ajuste del margen superior del contenido principal
             }
-
-            var footer = document.querySelector('.main-footer');
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    
+            // Verifica si el pie de página debe mostrarse
+            if ((windowHeight + scrollPosition) >= bodyHeight && scrollPosition > 0) {
                 footer.style.bottom = "0";
             } else {
                 footer.style.bottom = "-100px";
             }
         });
-
+    
+        // Oculta el pie de página al cargar la página por primera vez
         document.addEventListener("DOMContentLoaded", function () {
-            headerHeight = header.offsetHeight;
+            footer.style.bottom = "-100px";
         });
     </script>
 </body>
